@@ -1,2 +1,2 @@
-# node-express-angular-app
-Node ExpressJS Angular7 Web App
+# node-express-app
+Node ExpressJS Service API's
