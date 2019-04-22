@@ -27,12 +27,18 @@ export class LoginServiceService {
     return this._http.post('http://localhost:3000/login', { uname: userObj.uname, pass: userObj.pass }, { observe: 'response', headers: this.headerOptions });
   }
 
-  setAuth() {
+  setupAuth() {
     return this._http.post('http://localhost:3000/tfa/setup', {}, { observe: 'response' });
   }
 
   registerUser(userObj: any) {
     return this._http.post('http://localhost:3000/register', { uname: userObj.uname, pass: userObj.pass }, { observe: 'response' });
+  }
+
+  updateAuthStatus(value: boolean) {
+    this._isLoggedIn = value;
+    this.authSub.next(this._isLoggedIn);
+    localStorage.setItem('isLoggedIn', value ? 'true' : 'false');
   }
 
   getAuthStatus() {
@@ -54,7 +60,7 @@ export class LoginServiceService {
     return this._http.delete('http://localhost:3000/tfa/setup', { observe: 'response' });
   }
 
-  verifyToken(token: any) {
+  verifyAuth(token: any) {
     return this._http.post('http://localhost:3000/tfa/verify', { token }, { observe: 'response' });
   }
 }
